@@ -1,0 +1,2 @@
+# Seminario
+VBIJARRA, SEMINARIO, BD MY SQL 
