@@ -124,7 +124,7 @@ public class Tipo_Tecnica extends Soluciones{
 				     System.out.println(String.format("%-10s", "Solucion") + " | " +  String.format("%-30s", " Descripción Inc")    + 
 			    			 " | " + String.format("%-20s", "Aplicacion") + " | " + String.format("%-20s","Modulo")  + 
 			    			 " | " + String.format("%-20s","Proceso") + " | " + String.format("%-20s","Pantalla") + 
-			    			 " | " + String.format("%-20s","Desc_Area") + " | " + String.format("%-90s","Descripción Sol") +  
+			    			 " | " + String.format("%-20s","Desc_Area") + " | " + String.format("%-50s","Descripción Sol") +  
 			    			 " | " + String.format("%-50s","Script") + " | " + String.format("%-50s","Herramienta") + 
 			    			 " | " + String.format("%-50s","Path") + " | " + String.format("%-50s","Permisos") + 
 			    			 " | " + String.format("%-50s","Prerequisitos")); 

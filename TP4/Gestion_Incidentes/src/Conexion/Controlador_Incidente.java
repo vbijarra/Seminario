@@ -34,8 +34,7 @@ public class Controlador_Incidente {
 		int pantalla_Sel = vista.seleccionar_Pantalla(modelo, proceso_Sel); 
 		
 		int confirma= vista.Seleccionar_Confirma();  
-		if (confirma == 1) {   
-			
+		if (confirma == 1) {   			
 			Errores Nuevo_Error = new Errores(nuevo_incidente.getNro_Incidente(), nuevo_incidente.getFecha(), 
 					nuevo_incidente.getUsuario(), nuevo_incidente.getTipo_Problema(),  nuevo_incidente.getPrioridad(), 
 					nuevo_incidente.getEstado(), nuevo_incidente.getSolucion() ,  
@@ -52,11 +51,11 @@ public class Controlador_Incidente {
 			}			
 	}
 	
-	public void Cancelar_Incidente(int id_usu, int tipo_usu) throws SQLException {	
+	public void Cancelar_Incidente(int id_usu, int id_area, int tipo_usu) throws SQLException {	
 		int nro = 0; 
 		int inc_ok=0; 	
 		
-		ArrayList<Integer> List_Inc_Abi_Area =  modelo.Buscar_Inc_Usuario_Abiertos(id_usu, tipo_usu); /*busca incidentes abiertos del usuario y almacena id_incidentte en el arraylist*/
+		ArrayList<Integer> List_Inc_Abi_Area =  modelo.Buscar_Inc_Usuario_Abiertos(id_usu, id_area, tipo_usu); /*busca incidentes abiertos del usuario y almacena id_incidentte en el arraylist*/
 		try {
 			if (List_Inc_Abi_Area.size()>0) {
 				nro=vista.Seleccionar_Nro_Incidente();   /*solicita al usuario núero de incidente para cancelar*/
@@ -73,7 +72,7 @@ public class Controlador_Incidente {
 							return; 
 						} else 
 						{
-							Cancelar_Incidente(id_usu, tipo_usu); 
+							Cancelar_Incidente(id_usu, id_area, tipo_usu); 
 						}
 					}  
 				}
@@ -83,7 +82,7 @@ public class Controlador_Incidente {
 						return; 
 					} else 
 					{
-						Cancelar_Incidente(id_usu, tipo_usu);  //vuelve a llamar al método para cancelar otro incidente
+						Cancelar_Incidente(id_usu, id_area,  tipo_usu);  //vuelve a llamar al método para cancelar otro incidente
 					}
 				}
 			}
@@ -94,13 +93,13 @@ public class Controlador_Incidente {
 	} catch (Exception ext) {System.out.println("Error al Crear_Incidente:" + ext.getMessage());}
 	}	
 	
-	public void Listar_Incidentes(int id_usu, int id_area) throws SQLException {
+	public void Listar_Incidentes(int id_usu, int id_area, int id_tipo_usu) throws SQLException {  
 		try {	  
-			vista.Listar_Inc(modelo.Listar_Incidentes(id_usu, id_area)); /*busca incidentes y los lista */
+			vista.Listar_Inc(modelo.Listar_Incidentes(id_usu, id_area, id_tipo_usu)); /*busca incidentes y los lista */
 			int confirma=vista.Seleccionar_retorna_Menu(); 
 			if (confirma != 1) {
 				return; 
-			}else {Listar_Incidentes (id_usu, id_area); }			
+			}else {Listar_Incidentes (id_usu, id_area, id_tipo_usu); }			
 		} catch (Exception ext) {System.out.println("Error Buscar_Inc_Usuario_Abiertos:" + ext.getMessage());}
 	}
 }

@@ -65,13 +65,11 @@ import Soluciones.Tipo_Usuario;
 								System.out.println("_________________________________________________________________");
 								System.out.println("INGRESAR INCIDENTE"); 
 								System.out.println("_________________________________________________________________");
-								
 								try { /*se realilza conexión a la base de datos y se nstancia a Controlador_Incidente para insertar un nuevo incidente*/
 										Conectar conexion= new Conectar(); 
 										Controlador_Incidente controlador = new Controlador_Incidente(conexion);
 										controlador.Insertar(id_usu, tipo_usu);
-										conexion.desconectar();
-										
+										conexion.desconectar();										
 								}  catch (SQLException e) {
 										System.err.println("Error de conexión a la base de datos: " + e.getMessage());
 										}
@@ -89,7 +87,7 @@ import Soluciones.Tipo_Usuario;
 								try {/*se realilza conexión a la base de datos y se instancia a Controlador_Incidente para cancelar un incidente*/
 										Conectar conexion= new Conectar(); 
 										Controlador_Incidente controlador = new Controlador_Incidente(conexion);
-										controlador.Cancelar_Incidente(id_usu, tipo_usu);
+										controlador.Cancelar_Incidente(id_usu, id_area, tipo_usu);
 										conexion.desconectar();
 					    		}  catch (SQLException e) {
 					    			System.err.println("Error de conexión a la base de datos: " + e.getMessage());
@@ -108,7 +106,7 @@ import Soluciones.Tipo_Usuario;
 								try {/*se realilza conexión a la base de datos y se instancia a Controlador_Incidente para listar incidentes*/
 										Conectar conexion= new Conectar(); 
 										Controlador_Incidente controlador = new Controlador_Incidente(conexion);
-										controlador.Listar_Incidentes(id_usu, id_area);
+										controlador.Listar_Incidentes(id_usu, id_area, tipo_usu);   /*PASAR A WORD VB*/
 										conexion.desconectar();
 								    }catch (SQLException e) {
 									System.err.println("Error de conexión a la base de datos: " + e.getMessage());

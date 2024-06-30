@@ -190,12 +190,19 @@ public class Modelo_Incidente {
 	}
 	
 	
-	public ArrayList<Integer>  Buscar_Inc_Usuario_Abiertos (int Id_usu, int Id_area) throws SQLException {
+	public ArrayList<Integer>  Buscar_Inc_Usuario_Abiertos (int Id_usu, int Id_area, int tipo_usu) throws SQLException { /*AGREGAR AL WORD*/
 		java.sql.PreparedStatement ps= null; 
 		ResultSet rs = null; 
 
 		ArrayList<Integer> Incidentes_Usuario = new ArrayList<Integer>(); 
 		ArrayList<String> Listado = new ArrayList<String>(); 
+		
+		String condicion = ""; 
+		if (tipo_usu == 2) {
+			condicion= " ar.Id_Area= ar.Id_Area "; 
+		} else {
+			condicion= " ar.Id_Area= " + Id_area; 
+		}
 		try {	
 			ps = conexion.getConnection().prepareStatement("select i.Id_Incidente, i.Fecha , i.prioridad, err.Descripcion, "
 					+ " Est.Desc_Estado, ap.desc_aplicacion , mo.Desc_Modulo , pro.Desc_Proceso , pan.Desc_Pantalla,  "
@@ -211,7 +218,7 @@ public class Modelo_Incidente {
 					+ " inner join inc.usuarios usu on i.Id_Usuario = usu.Id_Usuario  "
 					+ " inner join inc.empleados em on usu.legajo = em.legajo  "
 					+ " inner join inc.areas ar on em.Id_Area = ar.Id_Area  "  
-					+ " where i.id_estado not in (2,4) and ar.Id_Area = " + Id_area);  
+					+ " where i.id_estado not in (2,4) and " + condicion);  
 			rs=ps.executeQuery(); 
 
 			while (rs.next()) { 
@@ -229,8 +236,7 @@ public class Modelo_Incidente {
 			 	String.format("%-20s", rs.getString("Desc_Area"))); 
 			}	
 			Vista_Incidente vista = new Vista_Incidente(); 
-			vista.Listar_Inc (Listado) ; 
-			
+			vista.Listar_Inc (Listado) ; 			
 		} catch (Exception ext) {System.out.println("Error Buscar_Inc_Usuario_Abiertos:" + ext.getMessage());}
 	 finally {
 		try {
@@ -255,11 +261,19 @@ public class Modelo_Incidente {
 		}
 	}
 	
-	public ArrayList<String> Listar_Incidentes(int id_usu, int id_area) throws SQLException {
+	public ArrayList<String> Listar_Incidentes(int id_usu, int id_area, int tipo_usu) throws SQLException {   /*PASAR A WORD VB 30/06/2024*/
 		java.sql.PreparedStatement ps= null; 
 		ResultSet rs = null;  
 		ArrayList<String> Listado = new ArrayList<String>(); 
-		 try {	  
+		String condicion = ""; 
+		if (tipo_usu == 2) {
+			condicion= " ar.Id_Area= ar.Id_Area "; 
+		} else {
+			condicion= " ar.Id_Area= " + id_area; 
+		}
+		
+		 try {	 
+			 
 			ps = conexion.getConnection().prepareStatement("select i.Id_Incidente, i.Fecha , i.prioridad, err.Descripcion, "
 					+ " Est.Desc_Estado, ap.desc_aplicacion , mo.Desc_Modulo , pro.Desc_Proceso , pan.Desc_Pantalla,  "
 					+ " usu.Usuario , ar.Desc_Area " 
@@ -274,7 +288,8 @@ public class Modelo_Incidente {
 					+ " inner join inc.usuarios usu on i.Id_Usuario = usu.Id_Usuario  "
 					+ " inner join inc.empleados em on usu.legajo = em.legajo  "
 					+ " inner join inc.areas ar on em.Id_Area = ar.Id_Area  "  
-					+ " where   ar.Id_Area = " + id_area   
+					+ " where  " + condicion  
+					+ " and i.Id_Estado  <> 2 "
 					+ " order by 1" );  
 			rs=ps.executeQuery(); 
 			
@@ -292,7 +307,7 @@ public class Modelo_Incidente {
 					 	String.format("%-20s", rs.getString("Desc_Area"))); 
 			}  
 			
-		} catch (Exception ext) {System.out.println("Error Buscar_Inc_Usuario_Abiertos:" + ext.getMessage());}
+		} catch (Exception ext) {System.out.println("Error Listar_Incidentes:" + ext.getMessage());}
 	 finally {
 		try {
 			ps.close();

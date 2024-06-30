@@ -83,13 +83,13 @@ public class Tipo_Usuario extends Soluciones{
 	        System.out.println("Soluciones de Usuario Encontradas");
 	        System.out.println("_________________________________________________________________");
 	        System.out.println(String.format("%-10s", "N Solución") + " | " +  String.format("%-30s", " Descripción Corta")  
-	        + " | " + String.format("%-90s", "Descripción Larga") + " | " + String.format("%-30s","Permisos") 
+	        + " | " + String.format("%-50s", "Descripción Larga") + " | " + String.format("%-30s","Permisos") 
 	        + "   | " + String.format("%-60s","Path") + " | " +  String.format("%-30s","Prerequisitos"));
 
 	       for (int i = 0; i<Soluciones_U_Encontradas.size(); i++)
 	        		System.out.println( String.format("%-10s", Soluciones_U_Encontradas.get(i).Nro_Solucion)  + " | " +  
 	        				 			String.format("%-30s", Soluciones_U_Encontradas.get(i).Desc_Corta) + " | " +  
-	        				 			 String.format("%-90s", Soluciones_U_Encontradas.get(i).Desc_Larga) + " | " +  
+	        				 			 String.format("%-50s", Soluciones_U_Encontradas.get(i).Desc_Larga) + " | " +  
 	        				 			 String.format("%-30s", Soluciones_U_Encontradas.get(i).Permisos) + " | " +  
 	        				 			 String.format("%-60s", Soluciones_U_Encontradas.get(i).Path) + " | " +  
 	        				 			 String.format("%-30s", Soluciones_U_Encontradas.get(i).Prerequisitos)); 	
